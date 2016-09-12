@@ -24,5 +24,5 @@ mount -t proc none proc
 mount --rbind /sys sys
 mount --rbind /dev dev
 cp -f /etc/resolv.conf /mnt/funtoo/etc/
+echo "please run <insert other scripts URL here> from inside the chroot"
 env -i HOME=/root TERM=$TERM chroot . bash -l
-echo test
