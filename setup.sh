@@ -1,11 +1,36 @@
 #!/bin/bash
 
 sgdisk --zap-all /dev/sda
-parted -s /dev/sda --script -- mklabel msdos
-parted -s /dev/sda mkpart primary 0% 1%
-parted -s /dev/sda mkpart primary 1% 4%
-parted -s /dev/sda mkpart primary 4% 75%
-parted -s /dev/sda mkpart primary 75% 100%
+#parted -s /dev/sda --script -- mklabel msdos
+#parted -s /dev/sda mkpart primary 0% 1%
+#parted -s /dev/sda mkpart primary 1% 4%
+#parted -s /dev/sda mkpart primary 4% 75%
+#parted -s /dev/sda mkpart primary 75% 100%
+echo "o
+n
+p
+1
+
++128M
+n
+p
+2
+
++512M
+t
+2
+82
+n
+p
+3
+
++8G
+n
+p
+
+
+w
+" | fdisk /dev/sda
 
 partprobe /dev/sda
 

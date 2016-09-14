@@ -34,6 +34,7 @@ sleep 5
 
 emerge -auDN @world
 
+#when I get my NUC i'll look into a custom kernel build for most NUCs and maybe auto build for older NUCs aor hope community will support them.
 emerge debian-sources
 
 emerge boot-update
