@@ -22,12 +22,19 @@ echo 'MAKEOPTS="-j3"
 #It seems like the best way to do it instead to echoing to the same file over and over
 #it's not like one NUC of the same make and model is going to differ
 
+echo "# required by sys-auth/polkit-0.113::gentoo[-systemd]
+# required by net-misc/networkmanager-1.0.12-r1::gentoo
+# required by networkmanager (argument)
+>=sys-auth/consolekit-0.4.6 policykit" > /etc/portage/package.unmask
+
 echo "this next part might take a LONG time
 go make yourself a drink or watch a movie.
 either way come back in a few hours"
 sleep 5
 
 emerge -auDN @world
+
+emerge debian-sources
 
 emerge boot-update
 
@@ -41,7 +48,7 @@ boot-update
 emerge linux-firmware networkmanager
 rc-update add NetworkManager default
 # nmtui
-#will addjust wifi later just adding this here so I don't forget
+#will adjust wifi later just adding this here so I don't forget
 
 rc-update add dhcpcd default
 
@@ -50,6 +57,8 @@ rc-update add dhcpcd default
 echo NUC > /etc/conf.d/hostname
 
 #ask user for password
-passwd
+read -s -p "Enter Password: " NEWPASSWORD
+echo "$USER:$NEWPASSWORD" | chpasswd
+#Thinking about changing root password to "md5sum $(date)" and make a user profile to ask for username a password for but thatwill bet added later.
 
 exit
