@@ -62,4 +62,6 @@ read -s -p "Enter Password: " NEWPASSWORD
 echo "$USER:$NEWPASSWORD" | chpasswd
 #Thinking about changing root password to "md5sum $(date)" and make a user profile to ask for username a password for but thatwill bet added later.
 
+mkdir -p /.hidden/backup
+
 exit
