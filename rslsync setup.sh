@@ -1,7 +1,13 @@
 #!/bin/bash
 ##run as sync user
-mkdir -p /.hidden/sync/bin/
+
+groupadd sync
+useradd -M -g sync sync
+
+mkdir -p /.hidden/sync/bin
+chown sync:sync /.hidden/sync/bin
 mkdir -p ~/home/sync
+
 cd /.hidden/bin/
 curl https://download-cdn.resilio.com/stable/linux-x64/resilio-sync_x64.tar.gz | tar xzf -
 
