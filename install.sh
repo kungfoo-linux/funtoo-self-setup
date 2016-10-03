@@ -9,16 +9,25 @@ echo "proc /proc proc defaults 0 0
 
 emerge --sync
 
-#change in final script to ask basic TZ or for manual input
+#Add later on to allow changing of timezone via IP, GPS or manually
+TZone=$(whiptail --title "What timezone is your device going to initially used?" --radiolist
+"Timezones" 20 78 10
+PST8PDT "Pacific Time Zone"
+UTC "Coordinated Universal Time" 
+#I'll add more later I am just lazy and this is no where near complete
+#I don't want to use my time adding timezones at the moment.
+#heck I might even just remove the option all together and use IP, GPS instead
+#but no clue these are my notes 
 ln -sf /usr/share/zoneinfo/PST8PDT /etc/localtime
 
 #change in final script to ask how many total cores user has
 #might even be able to just ask for model of NUC or CPU
 #will look into that
-echo 'MAKEOPTS="-j3"
+#most NUCs that I've seen so far have 4 threads.
+echo 'MAKEOPTS="-j5"
 ' > /etc/portage/make.conf
 #NOTE ON PERVIOUS COMMENT
-#will make different 'make.conf' files to download from github accorrding to anwser
+#will make different 'make.conf' files to download from github according to answer
 #It seems like the best way to do it instead to echoing to the same file over and over
 #it's not like one NUC of the same make and model is going to differ
 
@@ -48,7 +57,7 @@ boot-update
 
 emerge linux-firmware networkmanager
 rc-update add NetworkManager default
-# nmtui
+# nmtui <-- This is a command (I am adding this because I forgot why I had this here)
 #will adjust wifi later just adding this here so I don't forget
 
 rc-update add dhcpcd default
@@ -60,7 +69,7 @@ echo NUC > /etc/conf.d/hostname
 #ask user for password
 read -s -p "Enter Password: " NEWPASSWORD
 echo "$USER:$NEWPASSWORD" | chpasswd
-#Thinking about changing root password to "md5sum $(date)" and make a user profile to ask for username a password for but thatwill bet added later.
+#Thinking about changing root password to "md5sum $(date)" and make a user profile to ask for username a password for but that will be added later.
 
 mkdir -p /.hidden/backup
 
