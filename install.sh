@@ -14,6 +14,7 @@ TZone=$(whiptail --title "What timezone is your device going to initially used?"
 "Timezones" 20 78 10
 PST8PDT "Pacific Time Zone"
 UTC "Coordinated Universal Time" 
+3>&1 1>&2 2>&3)
 #I'll add more later I am just lazy and this is no where near complete
 #I don't want to use my time adding timezones at the moment.
 #heck I might even just remove the option all together and use IP, GPS instead
