@@ -1,5 +1,8 @@
 #!/bin/bash
 
+read -n1 -r -p "/etc/fstab
+Press any key to continue..." key
+
 echo "proc /proc proc defaults 0 0
 /dev/sda2 none swap defaults 0 0
 /dev/sda3 / btrfs compress=lzo,autodefrag 0 0
@@ -7,7 +10,13 @@ echo "proc /proc proc defaults 0 0
 /dev/sda4 /.hidden btrfs compress=lzo,autodefrag 0 0
 " > /etc/fstab
 
+read -n1 -r -p "Syncing
+Press any key to continue..." key
+
 emerge --sync
+
+read -n1 -r -p "TimeZones
+Press any key to continue..." key
 
 #Add later on to allow changing of timezone via IP, GPS or manually
 TZone=$(whiptail --title "What timezone is your device going to initially used?" --radiolist
@@ -34,12 +43,21 @@ ln -sf /usr/share/zoneinfo/$TZone /etc/localtime
 
 #will add option to choose. just getting basics down first
 
+read -n1 -r -p "Getting make.conf
+Press any key to continue..." key
+
 curl https://raw.githubusercontent.com/TheDurtch/funtoo-self-setup/master/make.conf > /etc/portage/make.conf
 
+read -n1 -r -p "Package.unmask
+Press any key to continue..." key
+#Might do the samething here as I did with make.conf
 echo "# required by sys-auth/polkit-0.113::gentoo[-systemd]
 # required by net-misc/networkmanager-1.0.12-r1::gentoo
 # required by networkmanager (argument)
 >=sys-auth/consolekit-0.4.6 policykit" > /etc/portage/package.unmask
+
+read -n1 -r -p "emerge @world
+Press any key to continue..." key
 
 echo "this next part might take a LONG time
 go make yourself a drink or watch a movie.
@@ -48,8 +66,13 @@ sleep 5
 
 emerge -auDN @world
 
+
+
 #when I get my NUC i'll look into a custom kernel build for most NUCs and maybe auto build for older NUCs or hope community will support them.
-emerge debian-sources
+#emerge debian-sources
+
+read -n1 -r -p "emerging boot-update and installing grup
+Press any key to continue..." key
 
 emerge boot-update
 
@@ -60,16 +83,15 @@ emerge boot-update
 grub-install --target=i386-pc --no-floppy /dev/sda
 boot-update
 
+read -n1 -r -p "emerging linux-firmware and NetworkManager
+Press any key to continue..." key
+
 emerge linux-firmware networkmanager
 rc-update add NetworkManager default
 # nmtui <-- This is a command (I am adding this because I forgot why I had this here)
 #will adjust wifi later just adding this here so I don't forget
 
 rc-update add dhcpcd default
-
-#Ask user for hostname
-
-echo NUC > /etc/conf.d/hostname
 
 #Standard user has no reason to access or login to root or media users directly
 #I will set up a user user for direct access (I actually find little reason to do this either other then to debug)
@@ -123,7 +145,8 @@ emerge xorg-x11
 
 #emerge sawfish 
 
-
+read -n1 -r -p "script almost over
+Press any key to continue..." key
 
 
 
