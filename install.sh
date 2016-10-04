@@ -19,7 +19,7 @@ UTC "Coordinated Universal Time"
 #I don't want to use my time adding timezones at the moment.
 #heck I might even just remove the option all together and use IP, GPS instead
 #but no clue these are my notes 
-ln -sf /usr/share/zoneinfo/PST8PDT /etc/localtime
+ln -sf /usr/share/zoneinfo/$TZone /etc/localtime
 
 #change in final script to ask how many total cores user has
 #might even be able to just ask for model of NUC or CPU
