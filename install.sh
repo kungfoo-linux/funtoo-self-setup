@@ -127,12 +127,6 @@ HOSTNAME=(echo $compname | tr -d '\n')
 
 echo "hostname=$HOSTNAME" > /etc/conf.d/hostname
 
-echo "\b - \l
-\d - \t
-\s
-\m
-\n" > /etc/issue
-
 epro flavor workstation
 
 epro mix-ins +audio +dvd +media +X +mediadevice-base +media-pro +mediaformat-audio-extra +mediaformat-video-extra +mediaformat-gfx-extra 
