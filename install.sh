@@ -67,11 +67,32 @@ rc-update add dhcpcd default
 
 echo NUC > /etc/conf.d/hostname
 
-#ask user for password
-read -s -p "Enter Password: " NEWPASSWORD
-echo "$USER:$NEWPASSWORD" | chpasswd
-#Thinking about changing root password to "md5sum $(date)" and make a user profile to ask for username a password for but that will be added later.
+#Standard user has no reason to access or login to root or media users directly
+#I will set up a user user for direct access (I actually find little reason to do this either other then to debug)
+#There will be no ssh, telnet, tftp, or ftp the main way of transferring files would be rslsync {I got permission to use this software} 
+#unless someone can give me a better idea of what to use, and if you do by all means open a ticket @ https://github.com/TheDurtch/funtoo-self-setup/issues and I will check over it
+#But I need a detailed write up of why I should use that program and how it will be better then Resilio Sync
 
-mkdir -p /.hidden/backup
+#Reason why I am using rslsync is it transfers things in chunks via torrent protocol with this you can add a bunch of music to your sync folder
+#and it will send it to your NUC when ever both machines are on and connected to the Internet so you don't have to wait for it to sync
+#e.g. if you are at Starbucks drive-thru or McD drive-thru, or if you are one of those lucky bastards who have Unlimited Data plans on your phone you could tether to it and sync then too
+
+
+ROOTPASSWORD=$(date | md5sum)
+
+echo "root:$ROOTPASSWORD" | chpasswd
+
+mkdir -p /.hidden/backup /.hidden/home
+
+useradd -b /.hidden/home -m -G audio,cdrom,usb media
+
+sleep 1
+
+MEDIAPASSWORD=$(date | md5sum)
+
+echo "media:$MEDIAPASSWORD" | chpasswd
+
+NEWPASSWORD=$(whiptail --passwordbox "Please enter your password" 8 78 --title "password dialog" 3>&1 1>&2 2>&3)
+#read -s -p "Enter Password: " NEWPASSWORD
 
 exit
