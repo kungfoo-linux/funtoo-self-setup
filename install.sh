@@ -25,12 +25,16 @@ ln -sf /usr/share/zoneinfo/$TZone /etc/localtime
 #might even be able to just ask for model of NUC or CPU
 #will look into that
 #most NUCs that I've seen so far have 4 threads.
-echo 'MAKEOPTS="-j5"
-' > /etc/portage/make.conf
+#echo 'MAKEOPTS="-j5"
+#' > /etc/portage/make.conf
 #NOTE ON PERVIOUS COMMENT
 #will make different 'make.conf' files to download from github according to answer
 #It seems like the best way to do it instead to echoing to the same file over and over
 #it's not like one NUC of the same make and model is going to differ
+
+#will add option to choose. just getting basics down first
+
+curl https://raw.githubusercontent.com/TheDurtch/funtoo-self-setup/master/make.conf > /etc/portage/make.conf
 
 echo "# required by sys-auth/polkit-0.113::gentoo[-systemd]
 # required by net-misc/networkmanager-1.0.12-r1::gentoo
@@ -84,7 +88,7 @@ echo "root:$ROOTPASSWORD" | chpasswd
 
 mkdir -p /.hidden/backup /.hidden/home
 
-useradd -b /.hidden/home -m -G audio,cdrom,usb media
+useradd -b /.hidden/home -m -G audio,cdrom,usb,video media
 
 sleep 1
 
@@ -94,5 +98,35 @@ echo "media:$MEDIAPASSWORD" | chpasswd
 
 NEWPASSWORD=$(whiptail --passwordbox "Please enter your password" 8 78 --title "password dialog" 3>&1 1>&2 2>&3)
 #read -s -p "Enter Password: " NEWPASSWORD
+
+compname=(whiptail --inputbox "What is your favorite Color?" 8 78 Blue --title "Example Dialog" 3>&1 1>&2 2>&3)
+
+HOSTNAME=(echo $compname | tr -d '\n')
+
+echo "hostname=$HOSTNAME" > /etc/conf.d/hostname
+
+echo "\b - \l
+\d - \t
+\s
+\m
+\n" > /etc/issue
+
+epro flavor workstation
+
+epro mix-ins +audio +dvd +media +X +mediadevice-base +media-pro +mediaformat-audio-extra +mediaformat-video-extra +mediaformat-gfx-extra 
+
+emerge --sync
+
+
+
+
+
+
+
+
+
+
+
+
 
 exit
