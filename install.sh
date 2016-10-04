@@ -117,8 +117,11 @@ epro mix-ins +audio +dvd +media +X +mediadevice-base +media-pro +mediaformat-aud
 
 emerge --sync
 
+emerge xorg-x11
 
+#emerge xf86-input-evdev
 
+#emerge sawfish 
 
 
 
