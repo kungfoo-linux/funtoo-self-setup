@@ -3,7 +3,7 @@
 ##more or less a reminder of things I am going to have to do later.
 
 
-
+## HINT: Look at this https://github.com/apt-mirror/apt-mirror
 
 
 
